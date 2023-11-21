@@ -1,0 +1,25 @@
+name: Build bcm2709
+on: [push]
+
+jobs:
+    build:
+        name: Build bcm2709
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Maximize build space
+              uses: AdityaGarg8/remove-unwanted-software@v1
+              with:
+                remove-android: 'true'
+                remove-dotnet: 'true'
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Build
+              run: |
+                ./scripts/feeds update -a
+                ./scripts/feeds install -a
+                cp .github/workflows/2709 .config
+                make defconfig
+                make download -j32
+                make -j$(nproc) 'IGNORE_ERRORS=n m'
