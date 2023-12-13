@@ -18,7 +18,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
 
 --- a/arch/arm/boot/dts/overlays/Makefile
 +++ b/arch/arm/boot/dts/overlays/Makefile
-@@ -226,6 +226,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
+@@ -225,6 +225,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
  	sc16is752-spi1.dtbo \
  	sdhost.dtbo \
  	sdio.dtbo \
@@ -28,7 +28,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  	sh1106-spi.dtbo \
 --- a/arch/arm/boot/dts/overlays/README
 +++ b/arch/arm/boot/dts/overlays/README
-@@ -3936,6 +3936,13 @@ Info:   This overlay is now deprecated.
+@@ -3932,6 +3932,13 @@ Info:   This overlay is now deprecated.
  Load:   <Deprecated>
  
  
@@ -44,7 +44,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
          base DTB, e.g. "dtoverlay=sdtweak,poll_once" becomes
 --- a/arch/arm/boot/dts/overlays/overlay_map.dts
 +++ b/arch/arm/boot/dts/overlays/overlay_map.dts
-@@ -260,6 +260,10 @@
+@@ -250,6 +250,10 @@
  		deprecated = "use sdio,bus_width=1,gpios_22_25";
  	};
  

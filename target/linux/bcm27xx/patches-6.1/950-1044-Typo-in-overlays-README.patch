@@ -10,7 +10,7 @@ touchscreen-size-y for rpi-ft5406 defaults to 480, not 600
 
 --- a/arch/arm/boot/dts/overlays/README
 +++ b/arch/arm/boot/dts/overlays/README
-@@ -3742,7 +3742,7 @@ Name:   rpi-ft5406
+@@ -3738,7 +3738,7 @@ Name:   rpi-ft5406
  Info:   Official Raspberry Pi display touchscreen
  Load:   dtoverlay=rpi-ft5406,<param>=<val>
  Params: touchscreen-size-x      Touchscreen X resolution (default 800)
