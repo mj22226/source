@@ -1175,7 +1175,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  obj-$(CONFIG_USB_ISP1760)	+= isp1760/
 --- a/drivers/usb/core/generic.c
 +++ b/drivers/usb/core/generic.c
-@@ -190,6 +190,7 @@ int usb_choose_configuration(struct usb_
+@@ -197,6 +197,7 @@ int usb_choose_configuration(struct usb_
  		dev_warn(&udev->dev,
  			"no configuration chosen from %d choice%s\n",
  			num_configs, plural(num_configs));
