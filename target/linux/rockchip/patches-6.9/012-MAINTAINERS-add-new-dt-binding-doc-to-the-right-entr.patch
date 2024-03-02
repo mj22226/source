@@ -12,7 +12,7 @@ Signed-off-by: Corentin Labbe <clabbe@baylibre.com>
 
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -19034,6 +19034,7 @@ M:	Corentin Labbe <clabbe@baylibre.com>
+@@ -19036,6 +19036,7 @@ M:	Corentin Labbe <clabbe@baylibre.com>
  L:	linux-crypto@vger.kernel.org
  S:	Maintained
  F:	Documentation/devicetree/bindings/crypto/rockchip,rk3288-crypto.yaml
