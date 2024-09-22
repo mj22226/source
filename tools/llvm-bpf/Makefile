@@ -7,11 +7,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=llvm-project
-PKG_VERSION:=18.1.7
+PKG_VERSION:=19.1.0
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).src.tar.xz
 PKG_SOURCE_URL:=https://github.com/llvm/llvm-project/releases/download/llvmorg-$(PKG_VERSION)
-PKG_HASH:=74446ab6943f686391954cbda0d77ae92e8a60c432eff437b8666e121d748ec4
+PKG_HASH:=5042522b49945bc560ff9206f25fb87980a9b89b914193ca00d961511ff0673c
 PKG_CPE_ID:=cpe:/a:llvm:llvm
 
 HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/$(PKG_NAME)-$(PKG_VERSION).src
