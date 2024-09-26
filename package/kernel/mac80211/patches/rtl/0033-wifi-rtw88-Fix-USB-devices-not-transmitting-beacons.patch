@@ -1,0 +1,47 @@
+From f0eb6c0614dd702db0fe9be59a1c04ada0f5d4ee Mon Sep 17 00:00:00 2001
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Date: Mon, 29 Jul 2024 01:49:39 +0300
+Subject: [PATCH] wifi: rtw88: Fix USB devices not transmitting beacons
+
+All USB devices supported by rtw88 have the same problem: they don't
+transmit beacons in AP mode. The cause appears to be clearing
+BIT_EN_BCNQ_DL of REG_FWHW_TXQ_CTRL before uploading the beacon reserved
+page, so don't clear the bit for USB devices.
+
+Tested with RTL8811CU and RTL8723DU.
+
+Cc: stable@vger.kernel.org # 6.6.x
+Signed-off-by: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+---
+ drivers/net/wireless/realtek/rtw88/fw.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+--- a/drivers/net/wireless/realtek/rtw88/fw.c
++++ b/drivers/net/wireless/realtek/rtw88/fw.c
+@@ -1468,10 +1468,12 @@ int rtw_fw_write_data_rsvd_page(struct r
+ 	val |= BIT_ENSWBCN >> 8;
+ 	rtw_write8(rtwdev, REG_CR + 1, val);
+ 
+-	val = rtw_read8(rtwdev, REG_FWHW_TXQ_CTRL + 2);
+-	bckp[1] = val;
+-	val &= ~(BIT_EN_BCNQ_DL >> 16);
+-	rtw_write8(rtwdev, REG_FWHW_TXQ_CTRL + 2, val);
++	if (rtw_hci_type(rtwdev) == RTW_HCI_TYPE_PCIE) {
++		val = rtw_read8(rtwdev, REG_FWHW_TXQ_CTRL + 2);
++		bckp[1] = val;
++		val &= ~(BIT_EN_BCNQ_DL >> 16);
++		rtw_write8(rtwdev, REG_FWHW_TXQ_CTRL + 2, val);
++	}
+ 
+ 	ret = rtw_hci_write_data_rsvd_page(rtwdev, buf, size);
+ 	if (ret) {
+@@ -1496,7 +1498,8 @@ restore:
+ 	rsvd_pg_head = rtwdev->fifo.rsvd_boundary;
+ 	rtw_write16(rtwdev, REG_FIFOPAGE_CTRL_2,
+ 		    rsvd_pg_head | BIT_BCN_VALID_V1);
+-	rtw_write8(rtwdev, REG_FWHW_TXQ_CTRL + 2, bckp[1]);
++	if (rtw_hci_type(rtwdev) == RTW_HCI_TYPE_PCIE)
++		rtw_write8(rtwdev, REG_FWHW_TXQ_CTRL + 2, bckp[1]);
+ 	rtw_write8(rtwdev, REG_CR + 1, bckp[0]);
+ 
+ 	return ret;
