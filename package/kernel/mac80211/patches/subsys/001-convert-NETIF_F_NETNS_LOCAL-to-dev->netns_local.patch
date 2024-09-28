@@ -1,0 +1,89 @@
+From 05c1280a2bcfca187fe7fa90bb240602cf54af0a Mon Sep 17 00:00:00 2001
+From: Alexander Lobakin <aleksander.lobakin@intel.com>
+Date: Thu, 29 Aug 2024 14:33:38 +0200
+Subject: [PATCH] netdev_features: convert NETIF_F_NETNS_LOCAL to
+ dev->netns_local
+
+"Interface can't change network namespaces" is rather an attribute,
+not a feature, and it can't be changed via Ethtool.
+Make it a "cold" private flag instead of a netdev_feature and free
+one more bit.
+
+Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+---
+ Documentation/networking/net_cachelines/net_device.rst |  1 +
+ Documentation/networking/netdev-features.rst           |  7 -------
+ Documentation/networking/switchdev.rst                 |  4 ++--
+ drivers/net/amt.c                                      |  2 +-
+ drivers/net/bonding/bond_main.c                        |  6 +++---
+ drivers/net/ethernet/adi/adin1110.c                    |  2 +-
+ drivers/net/ethernet/marvell/prestera/prestera_main.c  |  3 ++-
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c      |  4 ++--
+ drivers/net/ethernet/mellanox/mlx5/core/en_rep.c       |  3 ++-
+ drivers/net/ethernet/mellanox/mlxsw/spectrum.c         |  5 +++--
+ drivers/net/ethernet/rocker/rocker_main.c              |  3 ++-
+ drivers/net/ethernet/ti/cpsw_new.c                     |  3 ++-
+ drivers/net/loopback.c                                 |  2 +-
+ drivers/net/net_failover.c                             |  2 +-
+ drivers/net/team/team_core.c                           |  6 +++---
+ drivers/net/vrf.c                                      |  2 +-
+ include/linux/netdev_features.h                        |  6 ++----
+ include/linux/netdevice.h                              |  2 ++
+ net/batman-adv/soft-interface.c                        |  3 ++-
+ net/bridge/br_device.c                                 |  5 +++--
+ net/core/dev.c                                         |  4 ++--
+ net/ethtool/common.c                                   |  1 -
+ net/hsr/hsr_device.c                                   |  8 ++++----
+ net/ieee802154/6lowpan/core.c                          |  2 +-
+ net/ieee802154/core.c                                  | 10 +++++-----
+ net/ipv4/ip_tunnel.c                                   |  2 +-
+ net/ipv4/ipmr.c                                        |  2 +-
+ net/ipv6/ip6_gre.c                                     |  3 +--
+ net/ipv6/ip6_tunnel.c                                  |  2 +-
+ net/ipv6/ip6mr.c                                       |  2 +-
+ net/ipv6/sit.c                                         |  2 +-
+ net/openvswitch/vport-internal_dev.c                   |  2 +-
+ net/wireless/core.c                                    | 10 +++++-----
+ tools/testing/selftests/net/forwarding/README          |  2 +-
+ 34 files changed, 61 insertions(+), 62 deletions(-)
+
+--- a/net/wireless/core.c
++++ b/net/wireless/core.c
+@@ -165,11 +165,11 @@ int cfg80211_switch_netns(struct cfg8021
+ 	list_for_each_entry(wdev, &rdev->wiphy.wdev_list, list) {
+ 		if (!wdev->netdev)
+ 			continue;
+-		wdev->netdev->features &= ~NETIF_F_NETNS_LOCAL;
++		wdev->netdev->netns_local = false;
+ 		err = dev_change_net_namespace(wdev->netdev, net, "wlan%d");
+ 		if (err)
+ 			break;
+-		wdev->netdev->features |= NETIF_F_NETNS_LOCAL;
++		wdev->netdev->netns_local = true;
+ 	}
+ 
+ 	if (err) {
+@@ -181,11 +181,11 @@ int cfg80211_switch_netns(struct cfg8021
+ 						     list) {
+ 			if (!wdev->netdev)
+ 				continue;
+-			wdev->netdev->features &= ~NETIF_F_NETNS_LOCAL;
++			wdev->netdev->netns_local = false;
+ 			err = dev_change_net_namespace(wdev->netdev, net,
+ 							"wlan%d");
+ 			WARN_ON(err);
+-			wdev->netdev->features |= NETIF_F_NETNS_LOCAL;
++			wdev->netdev->netns_local = true;
+ 		}
+ 
+ 		return err;
+@@ -1473,7 +1473,7 @@ static int cfg80211_netdev_notifier_call
+ 		SET_NETDEV_DEVTYPE(dev, &wiphy_type);
+ 		wdev->netdev = dev;
+ 		/* can only change netns with wiphy */
+-		dev->features |= NETIF_F_NETNS_LOCAL;
++		dev->netns_local = true;
+ 
+ 		cfg80211_init_wdev(wdev);
+ 		break;
