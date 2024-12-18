@@ -1,0 +1,48 @@
+From c371b60e91d1eb30aa7794374f654461d1428208 Mon Sep 17 00:00:00 2001
+From: Marty Jones <mj8263788@gmail.com>
+Date: Tue, 17 Dec 2024 22:34:27 -0500
+Subject: [PATCH] Revert "libperf: evlist: Fix --cpu argument on hybrid
+ platform"
+
+This reverts commit 74d444cca1eb616912c3ffe4b8a060a7bb192618.
+---
+ tools/lib/perf/evlist.c | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
+
+--- a/tools/lib/perf/evlist.c
++++ b/tools/lib/perf/evlist.c
+@@ -47,20 +47,6 @@ static void __perf_evlist__propagate_map
+ 		 */
+ 		perf_cpu_map__put(evsel->cpus);
+ 		evsel->cpus = perf_cpu_map__intersect(evlist->user_requested_cpus, evsel->own_cpus);
+-
+-		/*
+-		 * Empty cpu lists would eventually get opened as "any" so remove
+-		 * genuinely empty ones before they're opened in the wrong place.
+-		 */
+-		if (perf_cpu_map__is_empty(evsel->cpus)) {
+-			struct perf_evsel *next = perf_evlist__next(evlist, evsel);
+-
+-			perf_evlist__remove(evlist, evsel);
+-			/* Keep idx contiguous */
+-			if (next)
+-				list_for_each_entry_from(next, &evlist->entries, node)
+-					next->idx--;
+-		}
+ 	} else if (!evsel->own_cpus || evlist->has_user_cpus ||
+ 		(!evsel->requires_cpu && perf_cpu_map__has_any_cpu(evlist->user_requested_cpus))) {
+ 		/*
+@@ -94,11 +80,11 @@ static void __perf_evlist__propagate_map
+ 
+ static void perf_evlist__propagate_maps(struct perf_evlist *evlist)
+ {
+-	struct perf_evsel *evsel, *n;
++	struct perf_evsel *evsel;
+ 
+ 	evlist->needs_map_propagation = true;
+ 
+-	list_for_each_entry_safe(evsel, n, &evlist->entries, node)
++	perf_evlist__for_each_evsel(evlist, evsel)
+ 		__perf_evlist__propagate_maps(evlist, evsel);
+ }
+ 
