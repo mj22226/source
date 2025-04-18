@@ -1,0 +1,40 @@
+From 3ae6205d27048aa6cc7d15e02811d32aa1db7812 Mon Sep 17 00:00:00 2001
+From: Marty Jones <mj8263788@gmail.com>
+Date: Fri, 18 Apr 2025 12:27:10 -0400
+Subject: [PATCH] Revert "PCI: brcmstb: Fix missing of_node_put() in
+ brcm_pcie_probe()"
+
+This reverts commit 5ace30081e4630454d4f38cf0bc91104d0f1bcc8.
+---
+ drivers/pci/controller/pcie-brcmstb.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
+
+--- a/drivers/pci/controller/pcie-brcmstb.c
++++ b/drivers/pci/controller/pcie-brcmstb.c
+@@ -1501,7 +1501,7 @@ static struct pci_ops brcm7425_pcie_ops
+ 
+ static int brcm_pcie_probe(struct platform_device *pdev)
+ {
+-	struct device_node *np = pdev->dev.of_node;
++	struct device_node *np = pdev->dev.of_node, *msi_np;
+ 	struct pci_host_bridge *bridge;
+ 	const struct pcie_cfg_data *data;
+ 	struct brcm_pcie *pcie;
+@@ -1576,14 +1576,9 @@ static int brcm_pcie_probe(struct platfo
+ 		goto fail;
+ 	}
+ 
+-	if (pci_msi_enabled()) {
+-		struct device_node *msi_np = of_parse_phandle(pcie->np, "msi-parent", 0);
+-
+-		if (msi_np == pcie->np)
+-			ret = brcm_pcie_enable_msi(pcie);
+-
+-		of_node_put(msi_np);
+-
++	msi_np = of_parse_phandle(pcie->np, "msi-parent", 0);
++	if (pci_msi_enabled() && msi_np == pcie->np) {
++		ret = brcm_pcie_enable_msi(pcie);
+ 		if (ret) {
+ 			dev_err(pcie->dev, "probe of internal MSI failed");
+ 			goto fail;
