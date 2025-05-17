@@ -21,7 +21,6 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 ---
- MAINTAINERS                           |   1 +
  drivers/char/hw_random/Kconfig        |  14 ++
  drivers/char/hw_random/Makefile       |   1 +
  drivers/char/hw_random/rockchip-rng.c | 227 ++++++++++++++++++++++++++
