@@ -685,10 +685,6 @@ endef
 
 KernelPackage/crypto-lib-poly1305/armeb=$(KernelPackage/crypto-lib-poly1305/arm)
 
-define KernelPackage/crypto-lib-poly1305/aarch64
-  KCONFIG+=CONFIG_CRYPTO_POLY1305_NEON
-  FILES:=$(LINUX_DIR)/lib/crypto/arm64/poly1305-neon.ko
-endef
 
 define KernelPackage/crypto-lib-poly1305/mips
   KCONFIG+=CONFIG_CRYPTO_POLY1305_MIPS
