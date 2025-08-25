@@ -29,7 +29,7 @@ Signed-off-by: David Bauer <mail@david-bauer.net>
  	pinctrl-names = "default";
  	pinctrl-0 = <&sdio0_bus4 &sdio0_cmd &sdio0_clk>;
 -	sd-uhs-sdr104;
-+	/delete-property/ sd-uhs-sdr104;
++
  	status = "okay";
  };
  
@@ -38,7 +38,7 @@ Signed-off-by: David Bauer <mail@david-bauer.net>
  	pinctrl-names = "default";
  	pinctrl-0 = <&sdmmc_bus4 &sdmmc_clk &sdmmc_cmd &sdmmc0_det_l>;
 -	sd-uhs-sdr104;
-+	/delete-property/ sd-uhs-sdr104;
++
  	vmmc-supply = <&vcc3v0_sd>;
  	vqmmc-supply = <&vcc_sdio>;
  	status = "okay";
