@@ -54,7 +54,7 @@ jobs:
 
 
 
-                make -j$(nproc) 'IGNORE_ERRORS=n m' || true
+                make -j$(nproc) V=s 'IGNORE_ERRORS=n m' || true
                 tar -czvf bin/targets/rockchip/armv8/logs.tar.gz logs
                 rm -rf bin/targets/rockchip/armv8/packages
                 echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
