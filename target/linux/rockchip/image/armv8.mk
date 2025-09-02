@@ -12,7 +12,7 @@ define Device/armsom_sige7
   DEVICE_ALT0_MODEL := BPi-M7
   SOC := rk3588
   DEVICE_DTS := rockchip/rk3588-armsom-sige7
-  DEVICE_PACKAGES := kmod-r8169
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168
 endef
 TARGET_DEVICES += armsom_sige7
 
@@ -47,7 +47,7 @@ define Device/friendlyarm_nanopc-t6
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPC T6
   SOC := rk3588
-  DEVICE_PACKAGES := kmod-r8169
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168
 endef
 TARGET_DEVICES += friendlyarm_nanopc-t6
 
@@ -114,7 +114,7 @@ define Device/friendlyarm_nanopi-r3s
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R3S
   SOC := rk3566
-  DEVICE_PACKAGES := kmod-r8169
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r3s
 
@@ -123,7 +123,7 @@ define Device/friendlyarm_nanopi-r4s
   DEVICE_MODEL := NanoPi R4S
   DEVICE_VARIANT := 4GB LPDDR4
   SOC := rk3399
-  DEVICE_PACKAGES := kmod-r8169
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r4s
 
@@ -133,7 +133,7 @@ define Device/friendlyarm_nanopi-r4s-enterprise
   DEVICE_VARIANT := 4GB LPDDR4
   SOC := rk3399
   UBOOT_DEVICE_NAME := nanopi-r4s-rk3399
-  DEVICE_PACKAGES := kmod-r8169
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r4s-enterprise
 
@@ -141,7 +141,7 @@ define Device/friendlyarm_nanopi-r5c
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R5C
   SOC := rk3568
-  DEVICE_PACKAGES := kmod-r8169 kmod-rtw88-8822ce rtl8822ce-firmware wpad-basic-mbedtls
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168 kmod-rtw88-8822ce rtl8822ce-firmware wpad-basic-mbedtls
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r5c
 
@@ -149,7 +149,7 @@ define Device/friendlyarm_nanopi-r5s
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R5S
   SOC := rk3568
-  DEVICE_PACKAGES := kmod-r8169
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r5s
 
@@ -157,7 +157,7 @@ define Device/friendlyarm_nanopi-r6c
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R6C
   SOC := rk3588s
-  DEVICE_PACKAGES := kmod-r8169
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r6c
 
@@ -165,7 +165,7 @@ define Device/friendlyarm_nanopi-r6s
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R6S
   SOC := rk3588s
-  DEVICE_PACKAGES := kmod-r8169
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r6s
 
@@ -200,7 +200,7 @@ define Device/radxa_e25
   DEVICE_DTS := rockchip/rk3568-radxa-e25
   BOOT_SCRIPT := radxa-e25
   UBOOT_DEVICE_NAME := radxa-e25-rk3568
-  DEVICE_PACKAGES := kmod-r8169 kmod-ata-ahci-dwc
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168 kmod-ata-ahci-dwc
 endef
 TARGET_DEVICES += radxa_e25
 
@@ -257,7 +257,7 @@ define Device/radxa_rock-5b
   DEVICE_MODEL := ROCK 5B
   SOC := rk3588
   UBOOT_DEVICE_NAME := rock5b-rk3588
-  DEVICE_PACKAGES := kmod-r8169 kmod-hwmon-pwmfan
+  DEVICE_PACKAGES := kmod-r8125 kmod-r8168 kmod-hwmon-pwmfan
 endef
 TARGET_DEVICES += radxa_rock-5b
 
