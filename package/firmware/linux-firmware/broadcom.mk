@@ -340,29 +340,52 @@ $(eval $(call BuildPackage,brcmfmac-firmware-ap6255-hugsun-x99))
 
 ## Broadcom BRCMBCM43430/BCM4345
 
-BRCMFMAC_434_URL:=https://github.com/LibreELEC/brcmfmac_sdio-firmware/raw/refs/heads/master/
+BRCMFMAC_434_URL:=https://github.com/RPi-Distro/bluez-firmware/raw/refs/heads/bookworm/debian/firmware/broadcom/
+
+define Download/BCM4343A2.hcd
+  FILE:=BCM4343A2.hcd
+  URL:=$(BRCMFMAC_434_URL)
+  HASH:=5f7fb0a863f9ee8874e4ad37ccc69abbc751fdc0257cb3fdd0ba0e89378ff76a
+endef
 
 define Download/BCM4345C0.hcd
   FILE:=BCM4345C0.hcd
   URL:=$(BRCMFMAC_434_URL)
-  HASH:=977763e0e9efe9555fa009c2a2027ba46ad9fec749de01f0c677d2e2157eb90f
+  HASH:=51c45e77ddad91a19e96dc8fb75295b2087c279940df2634b23baf71b6dea42c
 endef
 
 define Download/BCM4345C5.hcd
   FILE:=BCM4345C5.hcd
   URL:=$(BRCMFMAC_434_URL)
-  HASH:=26edc9ccddee26f30e0902e56f28bd22d3c7a289983adfd2f39036dcde7c83ee
+  HASH:=fb9f4ec2df5301bd35f416384e103c012c5983024c49aa72fbbaf90177512caa
+endef
+
+define Download/BCM43430A1.hcd
+  FILE:=BCM43430A1.hcd
+  URL:=$(BRCMFMAC_434_URL)
+  HASH:=c096ad4a5c3f06ed7d69eba246bf89ada9acba64a5b6f51b1e9c12f99bb1e1a7
 endef
 
 define Download/BCM43430B0.hcd
   FILE:=BCM43430B0.hcd
   URL:=$(BRCMFMAC_434_URL)
-  HASH:=7f45b27871d3fe4f56ce19e7e6ce86cda745a9ccfa34a1243cd380e620122345
+  HASH:=338c2c6631131f516bfc7e64ef0872bd0402e1f98ef9d0c900eef0c814d90a25
 endef
 
+$(eval $(call Download,BCM4343A2.hcd))
 $(eval $(call Download,BCM4345C0.hcd))
 $(eval $(call Download,BCM4345C5.hcd))
+$(eval $(call Download,BCM43430A1.hcd))
 $(eval $(call Download,BCM43430B0.hcd))
+
+Package/brcmfmac-sdio-firmware-4343-bt = $(call Package/firmware-default,CYW4343 BT firmware and patch RAM)
+define Package/brcmfmac-sdio-firmware-4343-bt/install
+	$(INSTALL_DIR) $(1)/lib/firmware/brcm
+	$(INSTALL_DATA) \
+		$(DL_DIR)/BCM4343A2.hcd \
+		$(1)/lib/firmware/brcm/BCM4343A2.hcd
+endef
+$(eval $(call BuildPackage,brcmfmac-sdio-firmware-4343-bt))
 
 Package/brcmfmac-sdio-firmware-4345-bt = $(call Package/firmware-default,CYW4345 BT firmware and patch RAM)
 define Package/brcmfmac-sdio-firmware-4345-bt/install
@@ -373,12 +396,17 @@ define Package/brcmfmac-sdio-firmware-4345-bt/install
 	$(INSTALL_DATA) \
 		$(DL_DIR)/BCM4345C5.hcd \
 		$(1)/lib/firmware/brcm/BCM4345C5.hcd
+endef
 $(eval $(call BuildPackage,brcmfmac-sdio-firmware-4345-bt))
 
 Package/brcmfmac-sdio-firmware-43430-bt = $(call Package/firmware-default,CYW43430 BT firmware and patch RAM)
 define Package/brcmfmac-sdio-firmware-43430-bt/install
 	$(INSTALL_DIR) $(1)/lib/firmware/brcm
 	$(INSTALL_DATA) \
+		$(DL_DIR)/BCM43430A1.hcd \
+		$(1)/lib/firmware/brcm/BCM43430A1.hcd
+	$(INSTALL_DATA) \
 		$(DL_DIR)/BCM43430B0.hcd \
 		$(1)/lib/firmware/brcm/BCM43430B0.hcd
+endef
 $(eval $(call BuildPackage,brcmfmac-sdio-firmware-43430-bt))
