@@ -410,3 +410,24 @@ define Package/brcmfmac-sdio-firmware-43430-bt/install
 		$(1)/lib/firmware/brcm/BCM43430B0.hcd
 endef
 $(eval $(call BuildPackage,brcmfmac-sdio-firmware-43430-bt))
+
+## Broadcom BCM4356A2
+
+BRCMFMAC_4356A2_URL:=https://github.com/LibreELEC/brcmfmac_sdio-firmware/raw/refs/heads/master/
+
+define Download/BCM4356A2.hcd
+  FILE:=BCM4356A2.hcd
+  URL:=$(BRCMFMAC_4356A2_URL)
+  HASH:=f1daa6ab28699b72c8e47a34f43c095941c9aa542d0a5f4b55baebc5fd1aae99
+endef
+
+$(eval $(call Download,BCM4356A2.hcd))
+
+Package/brcmfmac-sdio-firmware-4356A2-bt = $(call Package/firmware-default,BCM4356A2 BT firmware and patch RAM)
+define Package/brcmfmac-sdio-firmware-4356A2-bt/install
+	$(INSTALL_DIR) $(1)/lib/firmware/brcm
+	$(INSTALL_DATA) \
+		$(DL_DIR)/BCM4356A2.hcd \
+		$(1)/lib/firmware/brcm/BCM4356A2.hcd
+endef
+$(eval $(call BuildPackage,brcmfmac-sdio-firmware-4356A2-bt))
