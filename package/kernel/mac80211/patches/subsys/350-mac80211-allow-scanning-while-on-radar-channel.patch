@@ -211,7 +211,7 @@
  			list_add_tail(&roc->list, &local->roc_list);
 --- a/net/mac80211/scan.c
 +++ b/net/mac80211/scan.c
-@@ -586,25 +586,72 @@ static int ieee80211_start_sw_scan(struc
+@@ -591,25 +591,72 @@ static int ieee80211_start_sw_scan(struc
  	return 0;
  }
  
@@ -289,7 +289,7 @@
  	}
  
  	return true;
-@@ -612,12 +659,12 @@ static bool __ieee80211_can_leave_ch(str
+@@ -617,12 +664,12 @@ static bool __ieee80211_can_leave_ch(str
  
  static bool ieee80211_can_scan(struct ieee80211_local *local,
  			       struct ieee80211_sub_if_data *sdata,
@@ -307,7 +307,7 @@
  		return false;
  
  	if (sdata->vif.type == NL80211_IFTYPE_STATION &&
-@@ -629,19 +676,22 @@ static bool ieee80211_can_scan(struct ie
+@@ -634,19 +681,22 @@ static bool ieee80211_can_scan(struct ie
  
  void ieee80211_run_deferred_scan(struct ieee80211_local *local)
  {
@@ -337,7 +337,7 @@
  		return;
  
  	wiphy_delayed_work_queue(local->hw.wiphy, &local->scan_work,
-@@ -724,6 +774,7 @@ static int __ieee80211_start_scan(struct
+@@ -729,6 +779,7 @@ static int __ieee80211_start_scan(struct
  {
  	struct ieee80211_local *local = sdata->local;
  	bool hw_scan = local->ops->hw_scan;
@@ -345,7 +345,7 @@
  	int rc;
  
  	lockdep_assert_wiphy(local->hw.wiphy);
-@@ -738,10 +789,11 @@ static int __ieee80211_start_scan(struct
+@@ -743,10 +794,11 @@ static int __ieee80211_start_scan(struct
  	    !(sdata->vif.active_links & BIT(req->tsf_report_link_id)))
  		return -EINVAL;
  
