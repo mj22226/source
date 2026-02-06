@@ -29,6 +29,8 @@ jobs:
                 cd feeds/luci
                 wget https://gist.githubusercontent.com/mj22226/363cefecd314e45b49d8eafff8473fcf/raw/f327d1fcae5513be3abbeea1c6696c1da845a635/01-diskman.patch
                 git apply 01-diskman.patch
+                wget https://github.com/mj22226/luci/commit/eb4d960c7f37f89d7dc8f1e14d1409cabf744de1.patch
+                git apply eb4d960c7f37f89d7dc8f1e14d1409cabf744de1.patch
                 cd -
                 cd  feeds/packages
                 wget https://gist.githubusercontent.com/mj22226/351f11e66f08f06e37a985719a31ddb4/raw/2cf67633587d351b66fdf1bd902df6494cd42e68/01-cpu.patch
