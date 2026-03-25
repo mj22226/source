@@ -116,8 +116,8 @@ Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
  		airoha_metadata_dst_free(port);
  	}
  	airoha_hw_cleanup(eth);
-@@ -3243,10 +3257,12 @@ static void airoha_remove(struct platfor
- 
+@@ -3244,10 +3258,12 @@ static void airoha_remove(struct platfor
+ 		airoha_dev_stop(port->dev);
  		unregister_netdev(port->dev);
  		airoha_metadata_dst_free(port);
 +#if defined(CONFIG_PCS_AIROHA)
