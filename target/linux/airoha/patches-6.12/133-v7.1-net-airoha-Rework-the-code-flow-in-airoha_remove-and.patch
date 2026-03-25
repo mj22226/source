@@ -151,7 +151,7 @@ Signed-off-by: Paolo Abeni <pabeni@redhat.com>
  
  	for (i = 0; i < ARRAY_SIZE(eth->ports); i++) {
  		struct airoha_gdm_port *port = eth->ports[i];
-@@ -3080,9 +3092,9 @@ static void airoha_remove(struct platfor
+@@ -3081,9 +3093,9 @@ static void airoha_remove(struct platfor
  		unregister_netdev(port->dev);
  		airoha_metadata_dst_free(port);
  	}
