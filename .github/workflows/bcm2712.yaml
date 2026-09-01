@@ -4,7 +4,7 @@ on: [push]
 jobs:
     build:
         name: Build Raspberry Pi 5 images
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
 
         steps:
             - name: Setup Ubuntu
@@ -12,12 +12,12 @@ jobs:
                 sudo apt update
                 sudo apt install -y python3 python3-pip python3-ply python3-distutils python3-pyelftools libpython3-dev swig
             - name: Maximize build space
-              uses: AdityaGarg8/remove-unwanted-software@v1
+              uses: AdityaGarg8/remove-unwanted-software@v5
               with:
                 remove-android: 'true'
                 remove-dotnet: 'true'
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@main
 
             - name: Build
               run: |
@@ -58,7 +58,7 @@ jobs:
                 tar -cvf bcm27xx-images.tar bin/targets/bcm27xx/bcm2712
 
             - name: Upload artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@main
               with:
                 name: bcm27xx-images
                 path: bcm27xx-images.tar
@@ -70,7 +70,7 @@ jobs:
 
           steps:
             - name: Download the image artifacts
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@main
               with:
                 name: bcm27xx-images
 
