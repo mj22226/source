@@ -41,6 +41,8 @@ jobs:
                 sed -i 's/default n/default y/g' feeds/packages/utils/dockerd/Config.in
                 ./scripts/feeds update -a
                 ./scripts/feeds install -a -f
+                wget https://downloads.openwrt.org/releases/23.05.0/targets/bcm27xx/bcm2711/llvm-bpf-15.0.7.Linux-x86_64.tar.xz
+                tar -xvf llvm-bpf-15.0.7.Linux-x86_64.tar.xz
                 cp .github/workflows/config.buildinfo1 .config
                 make defconfig
                 wget https://gist.githubusercontent.com/mj22226/23edc25efeb65ef69d8eb6598f4f8179/raw/29c862e3e2558852523f4e8edd5f3d0cc145067e/01-key.patch
@@ -53,8 +55,8 @@ jobs:
                 wget https://gist.githubusercontent.com/mj22226/681178b344f588b4625a7f83febd9131/raw/73ff0c720a0eefb99fe086ec2d715e0052976df0/03.patch
                 git apply 03.patch
                 make -j$(nproc) 'IGNORE_ERRORS=n m'
-                cp -R bin/targets/bcm27xx/bcm2712/packages/ files/www/repo/
-                make -j$(nproc) 'IGNORE_ERRORS=n m'
+                # cp -R bin/targets/bcm27xx/bcm2712/packages/ files/www/repo/
+                # make -j$(nproc) 'IGNORE_ERRORS=n m'
                 tar -cvf bcm27xx-images.tar bin/targets/bcm27xx/bcm2712
 
             - name: Upload artifacts
