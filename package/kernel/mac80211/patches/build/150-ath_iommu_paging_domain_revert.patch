@@ -16,7 +16,7 @@
  
 --- a/drivers/net/wireless/ath/ath11k/ahb.c
 +++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -1020,10 +1020,10 @@ static int ath11k_ahb_fw_resources_init(
+@@ -1021,10 +1021,10 @@ static int ath11k_ahb_fw_resources_init(
  
  	ab_ahb->fw.dev = &pdev->dev;
  
