@@ -55,35 +55,21 @@ jobs:
                 wget https://gist.githubusercontent.com/mj22226/681178b344f588b4625a7f83febd9131/raw/73ff0c720a0eefb99fe086ec2d715e0052976df0/03.patch
                 git apply 03.patch
                 make -j$(nproc) 'IGNORE_ERRORS=n m'
-                # cp -R bin/targets/bcm27xx/bcm2712/packages/ files/www/repo/
-                # make -j$(nproc) 'IGNORE_ERRORS=n m'
-                tar -cvf bcm27xx-images.tar bin/targets/bcm27xx/bcm2712
-
-            - name: Upload artifacts
-              uses: actions/upload-artifact@main
+                rm -rf bin/targets/bcm27xx/bcm2712/packages
+                echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+                echo "HASH=$(git log -1 --format="%H")" >> $GITHUB_ENV
+            - name: Delete tag
+              run: gh release delete bcm2712-6.1 --cleanup-tag || true
+              env:
+                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Create release
+              uses: ncipollo/release-action@main
               with:
-                name: bcm27xx-images
-                path: bcm27xx-images.tar
-
-    release:
-          name: Make a release
-          runs-on: ubuntu-latest
-          needs: build
-
-          steps:
-            - name: Download the image artifacts
-              uses: actions/download-artifact@main
-              with:
-                name: bcm27xx-images
-
-            - name: Extract the image artifacts
-              run: tar xf bcm27xx-images.tar
-
-            - name: Create a release
-              uses: "marvinpinto/action-automatic-releases@latest"
-              with:
-                repo_token: "${{ secrets.GITHUB_TOKEN }}"
+                allowUpdates: true
+                commit: ${{ env.HASH }}
+                name: Raspberry Pi 5 v6.1 Firmware Images ${{ env.DATE }}
+                tag: bcm2712-6.1
+                replacesArtifacts: true
                 prerelease: true
-                title: "Raspberry Pi 5 Firmware Images"
-                automatic_release_tag: "bcm2712-6.1"
-                files: bin/targets/bcm27xx/bcm2712/*
+                token: "${{ secrets.GITHUB_TOKEN }}"
+                artifacts: bin/targets/bcm27xx/bcm2712/*
