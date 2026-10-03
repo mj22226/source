@@ -35,11 +35,9 @@ Link: https://patch.msgid.link/2b53fb0d-b1ed-47b6-8caa-2bb9ae2acb80@gmail.com
  drivers/net/wireless/realtek/rtw88/tx.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wireless/realtek/rtw88/tx.c
-index 2ab440cb2d67bb..3106edb84fb477 100644
 --- a/drivers/net/wireless/realtek/rtw88/tx.c
 +++ b/drivers/net/wireless/realtek/rtw88/tx.c
-@@ -421,7 +421,7 @@ void rtw_tx_pkt_info_update(struct rtw_dev *rtwdev,
+@@ -425,7 +425,7 @@ void rtw_tx_pkt_info_update(struct rtw_d
  		pkt_info->mac_id = rtwvif->mac_id;
  	}
  
