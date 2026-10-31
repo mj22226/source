@@ -21,7 +21,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
 
 --- a/include/net/mac80211.h
 +++ b/include/net/mac80211.h
-@@ -5625,6 +5625,17 @@ void ieee80211_tx_rate_update(struct iee
+@@ -5646,6 +5646,17 @@ void ieee80211_tx_rate_update(struct iee
  			      struct ieee80211_tx_info *info);
  
  /**
@@ -41,7 +41,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
   * Call this function for all transmitted frames after they have been
 --- a/net/mac80211/cfg.c
 +++ b/net/mac80211/cfg.c
-@@ -993,6 +993,7 @@ void ieee80211_tx_rate_to_rate_info(stru
+@@ -1015,6 +1015,7 @@ void ieee80211_tx_rate_to_rate_info(stru
  	if (rate->flags & IEEE80211_TX_RC_SHORT_GI)
  		rinfo->flags |= RATE_INFO_FLAGS_SHORT_GI;
  }
@@ -51,7 +51,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  			  const struct ieee80211_tx_rate *rate,
 --- a/net/mac80211/sta_info.h
 +++ b/net/mac80211/sta_info.h
-@@ -984,9 +984,6 @@ static inline int sta_info_flush(struct
+@@ -986,9 +986,6 @@ static inline int sta_info_flush(struct
  	return __sta_info_flush(sdata, false, link_id, NULL);
  }
  
