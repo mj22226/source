@@ -210,7 +210,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  		flow_tuple->out.hw_ifidx = route->tuple[dir].out.hw_ifindex;
  		dst_release(dst);
  		break;
-@@ -565,6 +569,40 @@ static void nf_flow_table_extend_ct_time
+@@ -566,6 +570,40 @@ static void nf_flow_table_extend_ct_time
  	nf_ct_put(ct);
  }
  
@@ -251,7 +251,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  static void nf_flow_offload_gc_step(struct nf_flowtable *flow_table,
  				    struct flow_offload *flow, void *data)
  {
-@@ -577,6 +615,8 @@ static void nf_flow_offload_gc_step(stru
+@@ -578,6 +616,8 @@ static void nf_flow_offload_gc_step(stru
  
  	if (nf_flow_has_expired(flow) ||
  	    nf_ct_is_dying(flow->ct) ||

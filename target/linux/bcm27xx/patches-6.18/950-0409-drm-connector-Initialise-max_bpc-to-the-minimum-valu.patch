@@ -32,7 +32,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  EXPORT_SYMBOL(__drm_atomic_helper_connector_hdmi_reset);
 --- a/drivers/gpu/drm/drm_connector.c
 +++ b/drivers/gpu/drm/drm_connector.c
-@@ -2839,8 +2839,8 @@ int drm_connector_attach_max_bpc_propert
+@@ -2842,8 +2842,8 @@ int drm_connector_attach_max_bpc_propert
  	}
  
  	drm_object_attach_property(&connector->base, prop, max);

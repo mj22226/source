@@ -342,7 +342,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  
 --- a/net/ipv4/fib_trie.c
 +++ b/net/ipv4/fib_trie.c
-@@ -3012,11 +3012,13 @@ static const struct seq_operations fib_r
+@@ -3024,11 +3024,13 @@ static const struct seq_operations fib_r
  
  int __net_init fib_proc_init(struct net *net)
  {
@@ -358,7 +358,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  			fib_triestat_seq_show, NULL))
  		goto out2;
  
-@@ -3027,17 +3029,21 @@ int __net_init fib_proc_init(struct net
+@@ -3039,17 +3041,21 @@ int __net_init fib_proc_init(struct net
  	return 0;
  
  out3:
@@ -409,7 +409,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  
 --- a/net/ipv4/inet_timewait_sock.c
 +++ b/net/ipv4/inet_timewait_sock.c
-@@ -301,7 +301,7 @@ void __inet_twsk_schedule(struct inet_ti
+@@ -303,7 +303,7 @@ void __inet_twsk_schedule(struct inet_ti
  	 */
  
  	if (!rearm) {

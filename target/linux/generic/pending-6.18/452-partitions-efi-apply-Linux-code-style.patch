@@ -240,7 +240,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  	kfree(*gpt);
  	*gpt = NULL;
  	return 0;
-@@ -457,12 +463,11 @@ static int is_gpt_valid(struct parsed_pa
+@@ -457,13 +463,12 @@ static int is_gpt_valid(struct parsed_pa
   *
   * Description: returns 1 if valid,  0 on error.
   */
@@ -249,6 +249,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 +static inline int is_pte_valid(const gpt_entry *pte, const u64 lastlba)
  {
  	if ((!efi_guidcmp(pte->partition_type_guid, NULL_GUID)) ||
+ 	    le64_to_cpu(pte->starting_lba) > le64_to_cpu(pte->ending_lba) ||
 -	    le64_to_cpu(pte->starting_lba) > lastlba         ||
 -	    le64_to_cpu(pte->ending_lba)   > lastlba)
 +	    le64_to_cpu(pte->starting_lba) > lastlba ||
@@ -256,7 +257,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  		return 0;
  	return 1;
  }
-@@ -477,8 +482,7 @@ is_pte_valid(const gpt_entry *pte, const
+@@ -478,8 +483,7 @@ is_pte_valid(const gpt_entry *pte, const
   * and prints warnings on discrepancies.
   * 
   */
@@ -266,7 +267,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  {
  	int error_found = 0;
  	if (!pgpt || !agpt)
-@@ -486,31 +490,32 @@ compare_gpts(gpt_header *pgpt, gpt_heade
+@@ -487,31 +491,32 @@ compare_gpts(gpt_header *pgpt, gpt_heade
  	if (le64_to_cpu(pgpt->my_lba) != le64_to_cpu(agpt->alternate_lba)) {
  		pr_warn("GPT:Primary header LBA != Alt. header alternate_lba\n");
  		pr_warn("GPT:%lld != %lld\n",
@@ -309,7 +310,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  		error_found++;
  	}
  	if (efi_guidcmp(pgpt->disk_guid, agpt->disk_guid)) {
-@@ -518,27 +523,27 @@ compare_gpts(gpt_header *pgpt, gpt_heade
+@@ -519,27 +524,27 @@ compare_gpts(gpt_header *pgpt, gpt_heade
  		error_found++;
  	}
  	if (le32_to_cpu(pgpt->num_partition_entries) !=
@@ -349,7 +350,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  		error_found++;
  	}
  	if (le64_to_cpu(pgpt->alternate_lba) != lastlba) {
-@@ -594,7 +599,7 @@ static int find_valid_gpt(struct parsed_
+@@ -595,7 +600,7 @@ static int find_valid_gpt(struct parsed_
  		return 0;
  
  	lastlba = last_lba(state->disk);
@@ -358,7 +359,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  		/* This will be added to the EFI Spec. per Intel after v1.02. */
  		legacymbr = kzalloc(sizeof(*legacymbr), GFP_KERNEL);
  		if (!legacymbr)
-@@ -608,18 +613,17 @@ static int find_valid_gpt(struct parsed_
+@@ -609,18 +614,17 @@ static int find_valid_gpt(struct parsed_
  			goto fail;
  
  		pr_debug("Device has a %s MBR\n",
@@ -386,7 +387,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  
  	if (!good_agpt && force_gpt && fops->alternative_gpt_sector) {
  		sector_t agpt_sector;
-@@ -627,43 +631,42 @@ static int find_valid_gpt(struct parsed_
+@@ -628,43 +632,42 @@ static int find_valid_gpt(struct parsed_
  
  		err = fops->alternative_gpt_sector(disk, &agpt_sector);
  		if (!err)
@@ -461,7 +462,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  }
  
  /**
-@@ -725,7 +728,9 @@ int efi_partition(struct parsed_partitio
+@@ -726,7 +729,9 @@ int efi_partition(struct parsed_partitio
  
  	pr_debug("GUID Partition Table is valid!  Yea!\n");
  
@@ -472,7 +473,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  		struct partition_meta_info *info;
  		unsigned label_max;
  		u64 start = le64_to_cpu(ptes[i].starting_lba);
-@@ -735,10 +740,11 @@ int efi_partition(struct parsed_partitio
+@@ -736,10 +741,11 @@ int efi_partition(struct parsed_partitio
  		if (!is_pte_valid(&ptes[i], last_lba(state->disk)))
  			continue;
  
@@ -486,7 +487,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  			state->parts[i + 1].flags = ADDPART_FLAG_RAID;
  
  		info = &state->parts[i + 1].info;
-@@ -747,7 +753,8 @@ int efi_partition(struct parsed_partitio
+@@ -748,7 +754,8 @@ int efi_partition(struct parsed_partitio
  		/* Naively convert UTF16-LE to 7 bits. */
  		label_max = min(ARRAY_SIZE(info->volname) - 1,
  				ARRAY_SIZE(ptes[i].partition_name));

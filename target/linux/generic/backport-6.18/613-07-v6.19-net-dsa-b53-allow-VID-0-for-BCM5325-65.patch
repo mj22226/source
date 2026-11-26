@@ -20,7 +20,7 @@ Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
 --- a/drivers/net/dsa/b53/b53_common.c
 +++ b/drivers/net/dsa/b53/b53_common.c
-@@ -852,10 +852,7 @@ static void b53_enable_stp(struct b53_de
+@@ -905,10 +905,7 @@ static void b53_enable_stp(struct b53_de
  
  static u16 b53_default_pvid(struct b53_device *dev)
  {
@@ -32,7 +32,7 @@ Signed-off-by: Jakub Kicinski <kuba@kernel.org>
  }
  
  static bool b53_vlan_port_needs_forced_tagged(struct dsa_switch *ds, int port)
-@@ -1679,9 +1676,6 @@ static int b53_vlan_prepare(struct dsa_s
+@@ -1742,9 +1739,6 @@ static int b53_vlan_prepare(struct dsa_s
  {
  	struct b53_device *dev = ds->priv;
  

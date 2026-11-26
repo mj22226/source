@@ -363,7 +363,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  	.get_link_ksettings     = macb_get_link_ksettings,
  	.set_link_ksettings     = macb_set_link_ksettings,
  	.get_ringparam		= macb_get_ringparam,
-@@ -5665,6 +5780,11 @@ static int macb_probe(struct platform_de
+@@ -5666,6 +5781,11 @@ static int macb_probe(struct platform_de
  			}
  		}
  	}
@@ -375,7 +375,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  	spin_lock_init(&bp->lock);
  	spin_lock_init(&bp->stats_lock);
  	spin_lock_init(&bp->tsu_clk_lock);
-@@ -5726,6 +5846,21 @@ static int macb_probe(struct platform_de
+@@ -5727,6 +5847,21 @@ static int macb_probe(struct platform_de
  	else
  		bp->phy_interface = interface;
  

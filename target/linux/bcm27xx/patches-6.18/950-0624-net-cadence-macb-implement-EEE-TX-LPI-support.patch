@@ -266,7 +266,7 @@ Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
  	phylink_stop(bp->phylink);
  	phylink_disconnect_phy(bp->phylink);
  
-@@ -5879,6 +6001,7 @@ static int macb_probe(struct platform_de
+@@ -5880,6 +6002,7 @@ static int macb_probe(struct platform_de
  	}
  
  	INIT_WORK(&bp->hresp_err_bh_work, macb_hresp_error_task);
@@ -274,7 +274,7 @@ Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
  
  	netdev_info(dev, "Cadence %s rev 0x%08x at 0x%08lx irq %d (%pM)\n",
  		    macb_is_gem(bp) ? "GEM" : "MACB", macb_readl(bp, MID),
-@@ -5928,6 +6051,7 @@ static void macb_remove(struct platform_
+@@ -5929,6 +6052,7 @@ static void macb_remove(struct platform_
  		}
  
  		device_set_wakeup_enable(&bp->pdev->dev, 0);

@@ -19,7 +19,7 @@ Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 
 --- a/drivers/net/ethernet/cadence/macb_main.c
 +++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -4737,8 +4737,12 @@ static int macb_setup_tc(struct net_devi
+@@ -4738,8 +4738,12 @@ static int macb_setup_tc(struct net_devi
  static void macb_tx_timeout(struct net_device *dev, unsigned int q)
  {
  	struct macb *bp = netdev_priv(dev);

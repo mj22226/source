@@ -12,7 +12,7 @@ Signed-off-by: John Crispin <john@phrozen.org>
 ---
 --- a/drivers/tty/serial/8250/8250.h
 +++ b/drivers/tty/serial/8250/8250.h
-@@ -86,6 +86,7 @@ struct serial8250_config {
+@@ -87,6 +87,7 @@ struct serial8250_config {
  					 * STOP PARITY EPAR SPAR WLEN5 WLEN6
  					 */
  #define UART_CAP_NOTEMT	BIT(18)	/* UART without interrupt on TEMT available */
@@ -31,7 +31,7 @@ Signed-off-by: John Crispin <john@phrozen.org>
  	},
  	[PORT_NPCM] = {
  		.name		= "Nuvoton 16550",
-@@ -2783,6 +2783,11 @@ serial8250_do_set_termios(struct uart_po
+@@ -2784,6 +2784,11 @@ serial8250_do_set_termios(struct uart_po
  	baud = serial8250_get_baud_rate(port, termios, old);
  	quot = serial8250_get_divisor(port, baud, &frac);
  

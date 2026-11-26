@@ -404,7 +404,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
 +
  	hlist_for_each_entry_safe(entry, n, head, list) {
  		if (found ||
- 		    !mtk_flow_entry_match(ppe->eth, entry, &foe, entry_len)) {
+ 			!mtk_flow_entry_match(ppe->eth, entry, &foe, entry_len)) {
 @@ -817,9 +1059,16 @@ void __mtk_ppe_check_skb(struct mtk_ppe
  			continue;
  		}

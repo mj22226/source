@@ -18,7 +18,7 @@ Signed-off-by: FrankLeeEDA <Fli@edatec.cn>
 
 --- a/drivers/regulator/Kconfig
 +++ b/drivers/regulator/Kconfig
-@@ -1828,4 +1828,23 @@ config REGULATOR_QCOM_LABIBB
+@@ -1829,4 +1829,23 @@ config REGULATOR_QCOM_LABIBB
  	  boost regulator and IBB can be used as a negative boost regulator
  	  for LCD display panel.
  

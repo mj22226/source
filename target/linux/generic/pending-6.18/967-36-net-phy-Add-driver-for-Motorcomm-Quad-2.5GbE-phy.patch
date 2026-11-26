@@ -1707,7 +1707,7 @@ changes in v2:
  
 --- a/drivers/net/phy/phy-c45.c
 +++ b/drivers/net/phy/phy-c45.c
-@@ -1408,6 +1408,61 @@ int genphy_c45_fast_retrain(struct phy_d
+@@ -1444,6 +1444,61 @@ int genphy_c45_fast_retrain(struct phy_d
  EXPORT_SYMBOL_GPL(genphy_c45_fast_retrain);
  
  /**
